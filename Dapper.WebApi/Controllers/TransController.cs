@@ -33,6 +33,21 @@ namespace Dapper.WebApi.Controllers
         public async Task<string> GetByCurrencyCode(string currencyCode)
         {
             var trans = await _transRepository.GetByCurrencyCode(currencyCode);
+            foreach(var item in trans)
+            {
+                if (item.Status.Trim().ToUpper().Equals("APPROVED"))
+                {
+                    item.Status = "A";
+                }
+                else if (item.Status.Trim().ToUpper().Equals("FAILED") || item.Status.Trim().ToUpper().Equals("REJECTED"))
+                {
+                    item.Status = "R";
+                }
+                else if (item.Status.Trim().ToUpper().Equals("FINISHED") || item.Status.Trim().ToUpper().Equals("DONE"))
+                {
+                    item.Status = "D";
+                }
+            }
             string result = JsonSerializer.Serialize(trans);
             return result;
         }
@@ -42,6 +57,21 @@ namespace Dapper.WebApi.Controllers
         public async Task<string> GetByDateRange(string startDate, string endDate)
         {
             var trans = await _transRepository.GetByDateRange(startDate, endDate);
+            foreach (var item in trans)
+            {
+                if (item.Status.Trim().ToUpper().Equals("APPROVED"))
+                {
+                    item.Status = "A";
+                }
+                else if (item.Status.Trim().ToUpper().Equals("FAILED") || item.Status.Trim().ToUpper().Equals("REJECTED"))
+                {
+                    item.Status = "R";
+                }
+                else if (item.Status.Trim().ToUpper().Equals("FINISHED") || item.Status.Trim().ToUpper().Equals("DONE"))
+                {
+                    item.Status = "D";
+                }
+            }
             string result = JsonSerializer.Serialize(trans);
             return result;
         }
@@ -51,6 +81,21 @@ namespace Dapper.WebApi.Controllers
         public async Task<string> GetByStatus(string status)
         {
             var trans = await _transRepository.GetByStatus(status.Trim());
+            foreach (var item in trans)
+            {
+                if (item.Status.Trim().ToUpper().Equals("APPROVED"))
+                {
+                    item.Status = "A";
+                }
+                else if (item.Status.Trim().ToUpper().Equals("FAILED") || item.Status.Trim().ToUpper().Equals("REJECTED"))
+                {
+                    item.Status = "R";
+                }
+                else if (item.Status.Trim().ToUpper().Equals("FINISHED") || item.Status.Trim().ToUpper().Equals("DONE"))
+                {
+                    item.Status = "D";
+                }
+            }
             string result = JsonSerializer.Serialize(trans);
             return result;
         }
